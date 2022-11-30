@@ -27,9 +27,21 @@ namespace SeleniumFramework.DriverCore
             return By.XPath(locator);
         }
 
+        public By ByID(string locator)
+        {
+            return By.Id(locator);
+        }
+
         public string getTitle()
         {
             return driver.Title;
+        }
+
+        public IWebElement FindElementByID(string locator)
+        {
+            IWebElement e = driver.FindElement(ByID(locator));
+            highlightElement(e);
+            return e;
         }
 
         public IWebElement FindElementByXpath(string locator)
@@ -48,6 +60,25 @@ namespace SeleniumFramework.DriverCore
             driver.Navigate().GoToUrl(url);
             HtmlReport.Pass("Go to URL: " + url);
         }
+
+        //click by ID
+
+        public void ClickByID(String locator)
+        {
+            try
+            {
+                FindElementByID(locator).Click();
+                TestContext.WriteLine("Click into element " + locator + " successfuly");
+                HtmlReport.Pass("Click into element " + locator + " successfuly");
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine("Click into element " + locator + " failed");
+                HtmlReport.Fail("Click into element " + locator + " failed", TakeScreenShot());
+                throw ex;
+            }
+        }
+
         public void Click(IWebElement e)
         {
             try
@@ -75,9 +106,9 @@ namespace SeleniumFramework.DriverCore
             }
             catch (Exception ex)
             {
-                throw ex;
                 TestContext.WriteLine("Click into element " + locator + " failed");
                 HtmlReport.Fail("Click into element " + locator + " failed", TakeScreenShot());
+                throw ex;
             }
         }
 
@@ -91,9 +122,9 @@ namespace SeleniumFramework.DriverCore
             }
             catch (Exception ex)
             {
-                throw ex;
                 TestContext.WriteLine("Click into element " + locator + " failed");
                 HtmlReport.Fail("Click into element " + locator + " failed", TakeScreenShot());
+                throw ex;
             }
         }
 
@@ -143,8 +174,26 @@ namespace SeleniumFramework.DriverCore
                 HtmlReport.Fail("Sendkey into element " + locator + " failed", TakeScreenShot());
                 throw ex;
             }
-
         }
+
+        //sendkey by ID
+
+        public void SendKeysByID(string locator, string key)
+        {
+            try
+            {
+                FindElementByID(locator).SendKeys(key);
+                TestContext.WriteLine("Sendkey into element " + locator + " successfuly");
+                HtmlReport.Pass("Sendkey into element " + locator + " successfuly");
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine("Sendkey into element " + locator + " failed");
+                HtmlReport.Fail("Sendkey into element " + locator + " failed", TakeScreenShot());
+                throw ex;
+            }
+        }
+
 
         // action select option
         public void SelectOption(String locator, String key)

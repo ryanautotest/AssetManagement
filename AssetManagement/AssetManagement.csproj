@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Selenium Final Examination\SeleniumFramework\SeleniumFramework.csproj" />
+    <ProjectReference Include="..\SeleniumFramework\SeleniumFramework.csproj" />
   </ItemGroup>
 
 </Project>
