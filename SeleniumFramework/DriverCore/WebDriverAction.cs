@@ -97,12 +97,19 @@ namespace SeleniumFramework.DriverCore
             }
         }
 
+        public IWebElement WaitForElementToBeClickable(IWebDriver driver, string locator, float timeOut = 30)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+            return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
+        }
         public void Click(String locator)
         {
             try
             {
+                WaitForElementToBeClickable(driver, locator);
                 FindElementByXpath(locator).Click();
                 TestContext.WriteLine("Click into element " + locator + " successfuly");
+                HtmlReport.Pass("Click into element " + locator + " successfuly");
             }
             catch (Exception ex)
             {

@@ -25,17 +25,6 @@ namespace AssetManagement.TestCases
         }
 
         [TestCase("toannd", "12345678")]
-        public void LoginAsUserAndLogoutTest(string userName, string password)
-        {
-            LoginPage loginPage = new LoginPage(driver);
-            loginPage.LoginAsUser(userName, password);
-            HomePage homePage = new HomePage(driver);
-            Assert.True(homePage.RequestForReturningIsDisplayed());
-            homePage.ClickLogout();
-            Assert.True(homePage.LoginButtonIsDisplayed());
-        }
-
-        [TestCase("toannd", "12345678")]
 
         public void LoginAsUserAndChangePassword(string userName, string password)
         {
@@ -57,6 +46,15 @@ namespace AssetManagement.TestCases
             Assert.True(homePage.RequestForReturningIsDisplayed());
         }
 
-
+        [TestCase("toannd", "12345678")]
+        public void LoginAsUserAndLogoutTest(string userName, string password)
+        {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.LoginAsUser(userName, password);
+            HomePage homePage = new HomePage(driver);
+            Assert.True(homePage.RequestForReturningIsDisplayed());
+            homePage.ClickLogout();
+            Assert.True(homePage.LoginButtonIsDisplayed());
+        }
     }
 }
