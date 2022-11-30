@@ -13,7 +13,6 @@ namespace SeleniumFramework.DriverCore
 {
     internal class WebDriverCreator
     {
-
         public static IWebDriver CreateLocalDriver(String Browser, int ScreenWidth, int ScreenHight)
         {
             IWebDriver? Driver = null;

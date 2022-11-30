@@ -36,14 +36,14 @@ namespace AssetManagement.PageObjects
 
         public Boolean ManagerUserIsDisplayed()
         {
-            var tf = IsElementDisplay(btnManageUser);
-            return tf;
+            var checkManageUser = IsElementDisplay(btnManageUser);
+            return checkManageUser;
         }
 
         public Boolean RequestForReturningIsDisplayed()
         {
-            var tf = IsElementDisplay(btnRequestForReturning);
-            return tf;
+            var checkRequestReturning = IsElementDisplay(btnRequestForReturning);
+            return checkRequestReturning;
         }
 
         public void ClickLogout()
