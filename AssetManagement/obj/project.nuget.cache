@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FZ+DFrSqAjeTa++nW+RRRrd8E9Pz/vWMDuqzMCIsd9TH66x0+Vr2NLoMYWH/rTvXez2t7wR12O3R5dsKg2QY1g==",
+  "dgSpecHash": "paOudAQ7GM+g6b8KN/9viOnErQCLwRHz+xdbjG6HamyYU8HcrLhVlT1pO4HarTWNvql9kNym9Nwwtdm3pop8tA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\AssetManagement\\AssetManagement\\AssetManagement.csproj",
   "expectedPackageFiles": [
@@ -103,7 +103,6 @@
     "C:\\Users\\Andy\\.nuget\\packages\\selenium.support\\4.6.0\\selenium.support.4.6.0.nupkg.sha512",
     "C:\\Users\\Andy\\.nuget\\packages\\selenium.webdriver\\4.6.0\\selenium.webdriver.4.6.0.nupkg.sha512",
     "C:\\Users\\Andy\\.nuget\\packages\\selenium.webdriver.chromedriver\\107.0.5304.6200\\selenium.webdriver.chromedriver.107.0.5304.6200.nupkg.sha512",
-    "C:\\Users\\Andy\\.nuget\\packages\\seleniumextras.waithelpers\\1.0.2\\seleniumextras.waithelpers.1.0.2.nupkg.sha512",
     "C:\\Users\\Andy\\.nuget\\packages\\sharpcompress\\0.23.0\\sharpcompress.0.23.0.nupkg.sha512",
     "C:\\Users\\Andy\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\Andy\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",

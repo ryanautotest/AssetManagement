@@ -9350,11 +9350,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\Selenium Final Examination\\SeleniumFramework\\SeleniumFramework.csproj",
+      "projectUniqueName": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\AssetManagement\\SeleniumFramework\\SeleniumFramework.csproj",
       "projectName": "SeleniumFramework",
-      "projectPath": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\Selenium Final Examination\\SeleniumFramework\\SeleniumFramework.csproj",
+      "projectPath": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\AssetManagement\\SeleniumFramework\\SeleniumFramework.csproj",
       "packagesPath": "C:\\Users\\Andy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\Selenium Final Examination\\SeleniumFramework\\obj\\",
+      "outputPath": "C:\\Users\\Andy\\Desktop\\Rookie - Toan\\AssetManagement\\SeleniumFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
