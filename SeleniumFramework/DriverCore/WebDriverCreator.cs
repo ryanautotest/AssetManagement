@@ -3,11 +3,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Safari;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniumFramework.DriverCore
 {
@@ -28,9 +25,8 @@ namespace SeleniumFramework.DriverCore
             {
                 Driver = new SafariDriver();
             }
-            Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Driver.Manage().Window.Size = new Size(ScreenWidth, ScreenHight);
+            Driver.Manage().Window.Maximize();
             return Driver;
         }
 

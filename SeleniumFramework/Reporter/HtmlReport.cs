@@ -53,7 +53,7 @@ namespace SeleniumFramework.Reporter
             {
                 _report = createInstance();
             }
-            extentTestSuite = _report.CreateTest(className, classDescription).AssignAuthor("RyanAutoTest").AssignDevice("Chrome 107.0.5304.106");
+            extentTestSuite = _report.CreateTest(className, classDescription).AssignAuthor("RyanAutoTest").AssignDevice("Chrome 107.0.5304.122");
             return extentTestSuite;
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SeleniumFramework.TestSetup;
 using AssetManagement.Resources;
+using AssetManagement.Services;
 
 namespace AssetManagement.TestSetup
 {

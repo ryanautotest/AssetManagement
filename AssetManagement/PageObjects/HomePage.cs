@@ -15,24 +15,21 @@ namespace AssetManagement.PageObjects
         {
         }
 
-        protected string btnLogin = "//button[text()='Login']";
-        protected string btnManageUser = "//button[text()='Manage User']";
-        protected string btnRequestForReturning = "//button[text()='Request for returning']";
+        protected string btnManageUser = "//li[contains(@data-menu-id, 'user')]";
+        protected string btnManageAsset = "//li[contains(@data-menu-id, 'asset')]";
+        protected string btnRequestForReturning = "//div[text()='Request for returning']";
         protected string btnUser = "//div//button//following-sibling::button";
         protected string optChangePassword = "//a[text()='Change password']";
-        protected string optLogout = "//a[text()='Logout']";
-        protected string btnLogout = "//button[text()='Logout']";
+        protected string optLogout = "//a[text()='Log out']";
+        protected string btnLogout = "//button[text()='Log out']";
 
-        //Change password locator
+        //Change password locators
         protected string oldPass = "oldPass";
         protected string newPass = "newPass";
         protected string btnSave = "//button[text()='Save']";
+        protected string btnClose = "//button[text()='Close']";
 
-
-        public void ClickLogin()
-        {
-            Click(btnLogin);
-        }
+        //Manage Asset locators
 
         public Boolean ManagerUserIsDisplayed()
         {
@@ -53,12 +50,6 @@ namespace AssetManagement.PageObjects
             Click(btnLogout);
         }
 
-        public Boolean LoginButtonIsDisplayed()
-        {
-            var tf = IsElementDisplay(btnLogin);
-            return tf;
-        }
-
         public void ChangePassword(string oldPassword, string newPassword)
         {
             Click(btnUser);
@@ -66,8 +57,17 @@ namespace AssetManagement.PageObjects
             SendKeysByID(oldPass, oldPassword);
             SendKeysByID(newPass, newPassword);
             Click(btnSave);
+            Click(btnClose);
         }
 
+        public void ClickManageUser()
+        {
+            Click(btnManageUser);
+        }
 
+        public void ClickManageAsset()
+        {
+            Click(btnManageAsset);
+        }
     }
 }

@@ -4,8 +4,8 @@
     {
         public static string BASE_URL = "http://54.169.248.235/";
         public static string ADMIN_USERNAME = "vangdv";
-        public static string ADMIN_PASSWORD = "vangdv@24112000";
+        public static string ADMIN_PASSWORD = "12345678";
 
-
+        public static string API_HOST = "http://54.169.248.235:8080";
     }
 }

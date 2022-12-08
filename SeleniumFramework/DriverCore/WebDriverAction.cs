@@ -1,14 +1,10 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumFramework.Reporter;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace SeleniumFramework.DriverCore
 {
@@ -102,6 +98,13 @@ namespace SeleniumFramework.DriverCore
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
             return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
         }
+
+        public IWebElement WaitForElementVisible(IWebDriver driver, string locator, float timeOut = 30)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+            return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(locator)));
+        }
+
         public void Click(String locator)
         {
             try
@@ -125,6 +128,44 @@ namespace SeleniumFramework.DriverCore
             try
             {
                 FindElementByXpath(locator).Click();
+                TestContext.WriteLine("Click into element " + locator + " successfuly");
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine("Click into element " + locator + " failed");
+                HtmlReport.Fail("Click into element " + locator + " failed", TakeScreenShot());
+                throw ex;
+            }
+        }
+
+        //Move to Element and Click Action
+        public void MoveToElementAndClick(string locator)
+        {
+            try
+            {
+                IWebElement webElement = FindElementByXpath(locator);
+                Actions action = new Actions(driver);
+                action.MoveToElement(webElement).Click().Build().Perform();                
+                TestContext.WriteLine("Move to element " + locator + " and click successfuly");
+                HtmlReport.Pass("Move to element " + locator + " and click successfuly");
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine("Move to element " + locator + " and click failed");
+                HtmlReport.Fail("Move to element " + locator + " and click failed", TakeScreenShot());
+                throw ex;
+            }
+        }
+
+        public void ClickByJavaScript(string locator)
+        {
+            try
+            {
+                IWebElement webElement = FindElementByXpath(locator);
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                jse.ExecuteScript("arguments[0].scrollIntoView(true);", webElement);
+                jse.ExecuteScript("arguments[0].click();", webElement);
+                jse.ExecuteScript("return arguments[0].style", webElement); 
                 TestContext.WriteLine("Click into element " + locator + " successfuly");
             }
             catch (Exception ex)
@@ -163,9 +204,9 @@ namespace SeleniumFramework.DriverCore
                 throw ex;
             }
         }
-        
-        // action clear
-        
+
+        // Clear and Sendkeys for editting
+
         public void ClearAndSendKey(string locator, string key)
         {
             try
@@ -201,8 +242,18 @@ namespace SeleniumFramework.DriverCore
             }
         }
 
+        //Fill date into Ant date picker with java script
+        public void RemoveReadonlyAndSendKeys(string locator, string key)
+        {
+            ClickByID(locator);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("document.getElementById('" + locator + "').removeAttribute('readonly',0);");
+            SendKeysByID(locator, key);
+            SendKeysByID(locator, Keys.Enter);
+        }
 
-        // action select option
+
+        // action select option normal
         public void SelectOption(String locator, String key)
         {
             try
@@ -217,6 +268,24 @@ namespace SeleniumFramework.DriverCore
                 TestContext.WriteLine("Select element " + locator + " failed with " + key);
                 throw ex;
             }
+        }
+
+        //Click to ant select dropdown then click to select
+        public void ClickAndSelect(string locator, string optionLocator)
+        {
+            Click(FindElementByXpath(locator));/*
+            IList<IWebElement> selectElements = driver.FindElements(By.XPath(locators));
+            foreach (IWebElement options in selectElements)
+            {
+                if (options.Text.Equals(key)) 
+                {
+                    options.Click();
+                }
+                break;
+            }*/
+            Click(optionLocator);
+            TestContext.WriteLine("Select element " + locator + " successfuly with " + optionLocator);
+            HtmlReport.Pass("Select element " + locator + " successfuly with " + optionLocator);
         }
         // action double click
         public void DoubleClick(String locator)
@@ -257,7 +326,7 @@ namespace SeleniumFramework.DriverCore
         {
             try
             {
-                Boolean tf =  FindElementByXpath(locator).Displayed;
+                Boolean tf = FindElementByXpath(locator).Displayed;
                 return tf;
                 TestContext.WriteLine("Element " + locator + " is Displayed");
                 HtmlReport.Pass("Element " + locator + " is Displayed");
@@ -272,34 +341,34 @@ namespace SeleniumFramework.DriverCore
         }
         public Boolean IsElementEnable(string locator)
         {
-                return FindElementByXpath(locator).Enabled;
-                TestContext.WriteLine("Element " + locator + " is Enabled");
-                HtmlReport.Pass("Element " + locator + " is Clickable");
+            return FindElementByXpath(locator).Enabled;
+            TestContext.WriteLine("Element " + locator + " is Enabled");
+            HtmlReport.Pass("Element " + locator + " is Clickable");
         }
 
-            // action get screenshot
+        // action get screenshot
 
         public string TakeScreenShot()
         {
-                string path = HtmlReportDirectory.SCREENSHOT_PATH + ("/screenshot_" + DateTime.Now.ToString("yyyyMMddHHmmss")) + ".png";
-                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
-                return path;
+            string path = HtmlReportDirectory.SCREENSHOT_PATH + ("/screenshot_" + DateTime.Now.ToString("yyyyMMddHHmmss")) + ".png";
+            var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+            return path;
         }
 
-            /*public IWebElement WaitForClickable()
-            {
-                return WebDriverManager_.GetCurrentDriver().WaitForElementToBeClickable(locator, timeout);
-            }*/
+        /*public IWebElement WaitForClickable()
+        {
+            return WebDriverManager_.GetCurrentDriver().WaitForElementToBeClickable(locator, timeout);
+        }*/
 
         //highlight
-            public IWebElement highlightElement(IWebElement element)
-            {
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-                jse.ExecuteScript("arguments[0].style.border='2px solid red'", element);
-                return element;
-            }
+        public IWebElement highlightElement(IWebElement element)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].style.border='2px solid red'", element);
+            return element;
         }
     }
+}
 
 

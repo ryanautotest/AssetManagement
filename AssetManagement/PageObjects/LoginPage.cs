@@ -20,9 +20,18 @@ namespace AssetManagement.PageObjects
         protected string txtPassword = "password";
         protected string btnSubmitLogin = "loginButton";
 
+        //change password 1st time
+        protected string txtNewPass = "//input[@id='newPass']";
+        protected string btnOK = "//span[text()='OK']";
+
+
+        public Boolean LoginButtonIsDisplayed()
+        {
+            var tf = IsElementDisplay(btnLogin);
+            return tf;
+        }
         public void LoginAsAdmin()
         {
-            Click(btnLogin);
             SendKeysByID(txtUserName, Constants.ADMIN_USERNAME);
             SendKeysByID(txtPassword, Constants.ADMIN_PASSWORD);
             ClickByID(btnSubmitLogin);
@@ -30,13 +39,16 @@ namespace AssetManagement.PageObjects
 
         public void LoginAsUser(string userName, string password)
         {
-            Click(btnLogin);
             SendKeysByID(txtUserName, userName);
             SendKeysByID(txtPassword, password);
             Click(btnLogin);
         }
 
-
+        public void ChangePassword1stTime(string password)
+        {
+            SendKeys_(txtNewPass, password);
+            Click(btnOK);
+        }
 
     }
 }
