@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using SeleniumFramework.APICore;
+using SeleniumFramework.Reporter;
 
 namespace SeleniumFramework.APICore
 {
-    public class APIResponse 
+    public class APIResponse : APIRequest
     {
         public HttpWebResponse response;
-
         public string responseBody { get; set; }
         public string responseStatusCode { get; set; }
+
         public APIResponse(HttpWebResponse response)
         {
             this.response = response;
@@ -29,10 +33,10 @@ namespace SeleniumFramework.APICore
                     {
                         responseBody = reader.ReadToEnd();
                     }
-            return responseBody;
+                return responseBody;
             }
         }
-        
+
         private string GetResponseStatusCode()
         {
             try

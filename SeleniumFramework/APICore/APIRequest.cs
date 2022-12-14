@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+using SeleniumFramework.APICore;
 using SeleniumFramework.Reporter;
 
 namespace SeleniumFramework.APICore
@@ -15,7 +13,6 @@ namespace SeleniumFramework.APICore
         public string url { get; set; }
         public string requestBody { get; set; }
         public string formData { get; set; }
-        public string Method { get; set; }
 
         public APIRequest SetUrl(string url)
         {
@@ -24,27 +21,15 @@ namespace SeleniumFramework.APICore
             return this;
         }
 
-        public APIResponse Get()
-        {
-            request.Method = "GET";
-            APIResponse response = SendRequest();
-            return response;
-        }
-        public APIResponse Post()
-        {
-            request.Method = "POST";
-            APIResponse response = SendRequest();
-            return response;
-        }
-        public APIResponse Put()
-        {
-            request.Method = "PUT";
-            APIResponse response = SendRequest();
-            return response;
-        }
         public APIRequest()
         {
             url = "";
+            requestBody = "";
+            formData = "";
+        }
+        public APIRequest(string baseUrl)
+        {
+            this.url = baseUrl;
             requestBody = "";
             formData = "";
         }
@@ -54,15 +39,16 @@ namespace SeleniumFramework.APICore
             request.Headers.Add(key, value);
             return this;
         }
+
         public APIRequest SetRequestParameter(string key, string value)
         {
             if (url.Contains("?"))
             {
-                url = url + "?" + key + "=" + value;
+                url += "?" + key + "=" + value;
             }
             else
             {
-                url = url + "&" + key + "=" + value;
+                url += "&" + key + "=" + value;
             }
             return this;
         }
@@ -73,7 +59,7 @@ namespace SeleniumFramework.APICore
             {
                 formData += key + "=" + value;
             }
-            else
+            else if (!formData.Equals(""))
             {
                 formData += "&" + key + "=" + value;
             }
@@ -84,6 +70,64 @@ namespace SeleniumFramework.APICore
         {
             this.requestBody = body;
             return this;
+        }
+
+        /*-------------------HTTP CLIENT
+        private HttpMethod CreateHttpMethod(string method)
+        {
+            switch (method.ToUpper())
+            {
+                case "GET":
+                    return HttpMethod.Get;
+                case "POST":
+                    return HttpMethod.Post;
+                case "HEAD":
+                    return HttpMethod.Head;
+                case "DELETE":
+                    return HttpMethod.Delete;
+                case "OPTIONS":
+                    return HttpMethod.Options;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+        */
+
+        /*-------SEND REQUEST------*/
+
+        public APIResponse Get()
+        {
+            request.Method = "GET";
+            APIResponse response = SendRequest();
+            return response;
+        }
+
+        public APIResponse Post()
+        {
+            request.Method = "POST";
+            APIResponse response = SendRequest();
+            return response;
+        }
+
+        public APIResponse Put()
+        {
+            request.Method = "PUT";
+            APIResponse response = SendRequest();
+            return response;
+        }
+
+        public APIResponse Head()
+        {
+            request.Method = "HEAD";
+            APIResponse response = SendRequest();
+            return response;
+        }
+
+        public APIResponse Delete()
+        {
+            request.Method = "DELETE";
+            APIResponse response = SendRequest();
+            return response;
         }
         public APIResponse SendRequest()
         {
