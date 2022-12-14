@@ -18,7 +18,7 @@ namespace SeleniumFramework.DriverCore
             this.driver = driver;
         }
 
-        public By ByXpath(String locator)
+        public By ByXpath(string locator)
         {
             return By.XPath(locator);
         }
@@ -47,7 +47,7 @@ namespace SeleniumFramework.DriverCore
             return e;
         }
 
-        public IList<IWebElement> FindElementsByXpath(String locator)
+        public IList<IWebElement> FindElementsByXpath(string locator)
         {
             return driver.FindElements(ByXpath(locator));
         }
@@ -59,7 +59,7 @@ namespace SeleniumFramework.DriverCore
 
         //click by ID
 
-        public void ClickByID(String locator)
+        public void ClickByID(string locator)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace SeleniumFramework.DriverCore
             return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(locator)));
         }
 
-        public void Click(String locator)
+        public void Click(string locator)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace SeleniumFramework.DriverCore
         }
 
         //click by dynamic xpath
-        public void ClickToElementWithKey(String locator, string key)
+        public void ClickToElementWithKey(string locator, string key)
         {
             try
             {
@@ -145,7 +145,8 @@ namespace SeleniumFramework.DriverCore
             {
                 IWebElement webElement = FindElementByXpath(locator);
                 Actions action = new Actions(driver);
-                action.MoveToElement(webElement).Click().Build().Perform();                
+                action.MoveToElement(webElement).Perform();
+                action.Click();
                 TestContext.WriteLine("Move to element " + locator + " and click successfuly");
                 HtmlReport.Pass("Move to element " + locator + " and click successfuly");
             }
@@ -176,20 +177,7 @@ namespace SeleniumFramework.DriverCore
             }
         }
 
-        public void SendKeys_(IWebElement e, string key)
-        {
-            try
-            {
-                e.SendKeys(key);
-                TestContext.WriteLine("Sendkey into element " + e.ToString + " successfuly");
-            }
-            catch (Exception ex)
-            {
-                TestContext.WriteLine("Sendkey into element " + e.ToString + " failed");
-                throw ex;
-            }
-        }
-        public void SendKeys_(String locator, String key)
+        public void SendKeys_(string locator, string key)
         {
             try
             {
@@ -207,12 +195,12 @@ namespace SeleniumFramework.DriverCore
 
         // Clear and Sendkeys for editting
 
-        public void ClearAndSendKey(string locator, string key)
+        public void ClearAndSendKeyByID(string locator, string key)
         {
             try
             {
-                FindElementByXpath(locator).Clear();
-                FindElementByXpath(locator).SendKeys(key);
+                FindElementByID(locator).Clear();
+                FindElementByID(locator).SendKeys(key);
                 TestContext.WriteLine("Sendkey into element " + locator + " successfuly");
                 HtmlReport.Pass("Sendkey into element " + locator + " successfuly");
             }
@@ -248,13 +236,14 @@ namespace SeleniumFramework.DriverCore
             ClickByID(locator);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("document.getElementById('" + locator + "').removeAttribute('readonly',0);");
-            SendKeysByID(locator, key);
+            jse.ExecuteScript("document.getElementById('" + locator + "').value='';");
+            ClearAndSendKeyByID(locator, key);
             SendKeysByID(locator, Keys.Enter);
         }
 
 
         // action select option normal
-        public void SelectOption(String locator, String key)
+        public void SelectOption(string locator, string key)
         {
             try
             {
@@ -273,22 +262,69 @@ namespace SeleniumFramework.DriverCore
         //Click to ant select dropdown then click to select
         public void ClickAndSelect(string locator, string optionLocator)
         {
-            Click(FindElementByXpath(locator));/*
-            IList<IWebElement> selectElements = driver.FindElements(By.XPath(locators));
-            foreach (IWebElement options in selectElements)
-            {
-                if (options.Text.Equals(key)) 
-                {
-                    options.Click();
-                }
-                break;
-            }*/
+            Click(locator);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IWebElement selectedOption = FindElementByXpath(optionLocator);
+            jse.ExecuteScript("arguments[0].scrollIntoViewIfNeeded(true);", selectedOption);
+            WaitForElementVisible(driver, optionLocator);
             Click(optionLocator);
             TestContext.WriteLine("Select element " + locator + " successfuly with " + optionLocator);
             HtmlReport.Pass("Select element " + locator + " successfuly with " + optionLocator);
         }
+
+        public void SelectDropdown(string dropdown, string value)
+        {
+            Click(dropdown);
+            Actions action = new Actions(driver);
+            action.ScrollToElement(FindElementByXpath(value)).Perform();
+            WaitForElementVisible(driver, value);
+            Click(value);
+        }
+
+        /*public void ScrollToElement(string locatorList, string locatorValue)
+        {
+
+            IWebElement selectElement = FindElementByXpath(locatorValue);
+            Actions action = new Actions(driver);
+            action.MoveToElement(elementList[0]);
+            action.ScrollToElement(selectElement).SendKeys(Keys.Enter);
+
+            action.ScrollToElement(selectElement).Build().Perform();
+            action.Click(selectElement);
+        }*/
+
+        //Enable Disable
+
+        public IWebElement IsElementEnable(string locator)
+        {
+            IWebElement e = FindElementByXpath(locator);
+            if (e.Enabled)
+            {
+                TestContext.WriteLine("Element " + locator + " is Enable");
+            }
+            else
+            {
+                TestContext.WriteLine("Element " + locator + " is Disable");
+            }
+            return e;
+        }
+        public bool IsElementDisable(string locator)
+        {
+            IWebElement e = FindElementByXpath(locator);
+            if (e.Enabled)
+            {
+                return false;
+                TestContext.WriteLine("Element "+ locator +" is Enable");
+            }
+            else
+            {
+                TestContext.WriteLine("Element " + locator + " is Disable");
+                return true;
+            }
+        }
+
         // action double click
-        public void DoubleClick(String locator)
+        public void DoubleClick(string locator)
         {
             try
             {
@@ -305,7 +341,6 @@ namespace SeleniumFramework.DriverCore
         }
 
         //action get text
-
         public string GetText(string locator)
         {
             try
@@ -339,12 +374,6 @@ namespace SeleniumFramework.DriverCore
             }
 
         }
-        public Boolean IsElementEnable(string locator)
-        {
-            return FindElementByXpath(locator).Enabled;
-            TestContext.WriteLine("Element " + locator + " is Enabled");
-            HtmlReport.Pass("Element " + locator + " is Clickable");
-        }
 
         // action get screenshot
 
@@ -356,12 +385,6 @@ namespace SeleniumFramework.DriverCore
             return path;
         }
 
-        /*public IWebElement WaitForClickable()
-        {
-            return WebDriverManager_.GetCurrentDriver().WaitForElementToBeClickable(locator, timeout);
-        }*/
-
-        //highlight
         public IWebElement highlightElement(IWebElement element)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;

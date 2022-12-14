@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using AssetManagement.PageObjects;
 using AssetManagement.TestSetup;
+using AssetManagement.Resources;
 using FluentAssertions;
 using AssetManagement.Services;
 using AssetManagement.DAO;
@@ -13,14 +14,7 @@ namespace AssetManagement.TestCases
     [TestFixture]
     public class LoginTest : ProjectNUnitTestSetup
     {
-        [Test]
-        public async Task LoginAPI()
-        {
-            AdminService adminService = new AdminService();
-            adminService.LoginAdmin();
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void LoginAsAdminAndLogoutTest()
         {
             LoginPage loginPage = new LoginPage(driver);
@@ -28,41 +22,53 @@ namespace AssetManagement.TestCases
             HomePage homePage = new HomePage(driver);
             //Assert.IsTrue(homePage.ManagerUserIsDisplayed());
             homePage.ClickLogout();
-            Assert.True(loginPage.LoginButtonIsDisplayed());
+            //Assert.True(loginPage());
         }
 
-        [TestCase("toannd", "12345678")]
+        [Test, Order(2)]
 
-        public void LoginAsUserAndChangePassword(string userName, string password)
+        public void LoginAsUserAndChangePassword()
         {
             LoginPage loginPage = new LoginPage(driver);
-            loginPage.LoginAsUser(userName, password);
+            loginPage.LoginAsUser();
             HomePage homePage = new HomePage(driver);
-            //Assert.True(homePage.RequestForReturningIsDisplayed());
             //change pass & logout
-            homePage.ChangePassword("12345678", "87654321");
+            homePage.ChangePassword();
             homePage.ClickLogout();
             //login with new pass
-            loginPage.LoginAsUser("toannd", "87654321");
-            Assert.True(homePage.RequestForReturningIsDisplayed());
+            loginPage.LoginAsUserAfterChangePassword();
             //change pass to oldpass & logout
-            homePage.ChangePassword("87654321", "12345678");
+            homePage.ResetPassword();
             homePage.ClickLogout();
             //login again
-            loginPage.LoginAsUser(userName, password);
-            Assert.True(homePage.RequestForReturningIsDisplayed());
+            loginPage.LoginAsUser();
         }
 
-        [TestCase("toannd", "12345678")]
-        public void LoginAsUserAndLogoutTest(string userName, string password)
+        [Test]
+        public void LoginAsUserAndLogoutTest()
         {
             LoginPage loginPage = new LoginPage(driver);
-            loginPage.LoginAsUser(userName, password);
+            loginPage.LoginAsUser();
             HomePage homePage = new HomePage(driver);
-            Assert.True(homePage.RequestForReturningIsDisplayed());
             homePage.ClickLogout();
-            Assert.True(loginPage.LoginButtonIsDisplayed());
         }
-       
+
+        [Test]
+        public void LoginFirstTime()
+        {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.LoginAsUserFirstTime();
+            loginPage.ChangePassword1stTime();
+            HomePage homePage = new HomePage(driver);
+            homePage.ClickLogout();
+            loginPage.LoginAsNewUserAfterChangePassword();
+        }
+        /*
+        [Test]
+        public async Task LoginAPI()
+        {
+            AdminService adminService = new AdminService();
+            adminService.LoginAdmin();
+        }*/
     }
 }

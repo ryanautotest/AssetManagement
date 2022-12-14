@@ -15,33 +15,26 @@ namespace AssetManagement.PageObjects
         {
         }
 
+        //navigator button
+        protected string btnHome = "//li[@data-menu-id='rc-menu-uuid-94643-3-']";
         protected string btnManageUser = "//li[contains(@data-menu-id, 'user')]";
         protected string btnManageAsset = "//li[contains(@data-menu-id, 'asset')]";
-        protected string btnRequestForReturning = "//div[text()='Request for returning']";
+        protected string btnManageAssignment = "//li[contains(@data-menu-id, 'assignment')]";
+        protected string btnRequestForReturning = "//li[contains(@data-menu-id, 'return')]";
+        protected string btnRequest = "//li[contains(@data-menu-id, 'report')]";
+
+        //Change password and log out
         protected string btnUser = "//div//button//following-sibling::button";
         protected string optChangePassword = "//a[text()='Change password']";
         protected string optLogout = "//a[text()='Log out']";
         protected string btnLogout = "//button[text()='Log out']";
 
         //Change password locators
-        protected string oldPass = "oldPass";
-        protected string newPass = "newPass";
+        protected string oldPass = "//input[@id='oldPass']";
+        protected string newPass = "//input[@id='newPass']";
         protected string btnSave = "//button[text()='Save']";
         protected string btnClose = "//button[text()='Close']";
 
-        //Manage Asset locators
-
-        public Boolean ManagerUserIsDisplayed()
-        {
-            var checkManageUser = IsElementDisplay(btnManageUser);
-            return checkManageUser;
-        }
-
-        public Boolean RequestForReturningIsDisplayed()
-        {
-            var checkRequestReturning = IsElementDisplay(btnRequestForReturning);
-            return checkRequestReturning;
-        }
 
         public void ClickLogout()
         {
@@ -50,24 +43,42 @@ namespace AssetManagement.PageObjects
             Click(btnLogout);
         }
 
-        public void ChangePassword(string oldPassword, string newPassword)
+        public void ChangePassword()
         {
             Click(btnUser);
             Click(optChangePassword);
-            SendKeysByID(oldPass, oldPassword);
-            SendKeysByID(newPass, newPassword);
+            SendKeys_(oldPass, Constants.OLD_PASSWORD);
+            SendKeys_(newPass, Constants.NEW_PASSWORD);
+            Click(btnSave);
+            Click(btnClose);
+        }
+        public void ResetPassword()
+        {
+            Click(btnUser);
+            Click(optChangePassword);
+            SendKeys_(oldPass, Constants.NEW_PASSWORD);
+            SendKeys_(newPass, Constants.OLD_PASSWORD);
             Click(btnSave);
             Click(btnClose);
         }
 
-        public void ClickManageUser()
+        public void GoToManageUser()
         {
             Click(btnManageUser);
         }
 
-        public void ClickManageAsset()
+        public void GoToManageAsset()
         {
             Click(btnManageAsset);
+        }
+
+        public void GoToManageAssignment()
+        {
+            Click(btnManageAssignment);
+        }
+        public void GoToRequestForReturning()
+        {
+            Click(btnRequestForReturning);
         }
     }
 }

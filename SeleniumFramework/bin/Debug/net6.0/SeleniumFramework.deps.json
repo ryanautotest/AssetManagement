@@ -12,9 +12,9 @@
           "Microsoft.NET.Test.Sdk": "17.4.0",
           "NUnit": "3.13.3",
           "NUnit3TestAdapter": "4.3.1",
-          "Selenium.Support": "4.6.0",
-          "Selenium.WebDriver": "4.6.0",
-          "Selenium.WebDriver.ChromeDriver": "107.0.5304.6200",
+          "Selenium.Support": "4.7.0",
+          "Selenium.WebDriver": "4.7.0",
+          "Selenium.WebDriver.ChromeDriver": "108.0.5359.7100",
           "SeleniumExtras.WaitHelpers": "1.0.2",
           "coverlet.collector": "3.2.0"
         },
@@ -1270,32 +1270,32 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "Selenium.Support/4.6.0": {
+      "Selenium.Support/4.7.0": {
         "dependencies": {
-          "Selenium.WebDriver": "4.6.0"
+          "Selenium.WebDriver": "4.7.0"
         },
         "runtime": {
-          "lib/net5.0/WebDriver.Support.dll": {
+          "lib/net6.0/WebDriver.Support.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.0.0.0"
           }
         }
       },
-      "Selenium.WebDriver/4.6.0": {
+      "Selenium.WebDriver/4.7.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
-          "lib/net5.0/WebDriver.dll": {
+          "lib/net6.0/WebDriver.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.0.0.0"
           }
         }
       },
-      "Selenium.WebDriver.ChromeDriver/107.0.5304.6200": {},
+      "Selenium.WebDriver.ChromeDriver/108.0.5359.7100": {},
       "SeleniumExtras.WaitHelpers/1.0.2": {
         "dependencies": {
-          "Selenium.WebDriver": "4.6.0"
+          "Selenium.WebDriver": "4.7.0"
         },
         "runtime": {
           "lib/netstandard2.1/SeleniumExtras.WaitHelpers.dll": {
@@ -2817,26 +2817,26 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
     },
-    "Selenium.Support/4.6.0": {
+    "Selenium.Support/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-sbZDn0v4fNwhB0vyhWZD+P9Tr3MlPOT5gA+SJTcqDxe0ieS1SOhF0koV2zmh1qwNq8dgR+6YxHhmhh3EntEZ+w==",
-      "path": "selenium.support/4.6.0",
-      "hashPath": "selenium.support.4.6.0.nupkg.sha512"
+      "sha512": "sha512-Fy5AIybjkJhVwe2VY2JSYBQeEV0E+HfG11wmkrC1+ICBBWBkt4Ax/oKH+oQ3kTgFCjDY2wAM4LCvMLDxRXi+ig==",
+      "path": "selenium.support/4.7.0",
+      "hashPath": "selenium.support.4.7.0.nupkg.sha512"
     },
-    "Selenium.WebDriver/4.6.0": {
+    "Selenium.WebDriver/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wdkzNyVYvdI0YOeScP42ubshPOjY7dj8aXHyetlhVTqKo5gAbYnOJU//W5q0hVSVw4hsisNvgR/UQqPvgM8rew==",
-      "path": "selenium.webdriver/4.6.0",
-      "hashPath": "selenium.webdriver.4.6.0.nupkg.sha512"
+      "sha512": "sha512-WNGX6JxjBS5f79PQnrB4oO+5U83f8tZfND+rqX2YJVHPdv3xS/zZwljWqGu5UDhluo3kEuuT+DuGEZW8/+9fOA==",
+      "path": "selenium.webdriver/4.7.0",
+      "hashPath": "selenium.webdriver.4.7.0.nupkg.sha512"
     },
-    "Selenium.WebDriver.ChromeDriver/107.0.5304.6200": {
+    "Selenium.WebDriver.ChromeDriver/108.0.5359.7100": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0xkXvzwRXVbduG62Z7+vhM4a85x3mWlfGUSQn+4PdeVJdkkssVe4rV80J+WBEOfUJAjga7L6YydFkbd9ONJqxQ==",
-      "path": "selenium.webdriver.chromedriver/107.0.5304.6200",
-      "hashPath": "selenium.webdriver.chromedriver.107.0.5304.6200.nupkg.sha512"
+      "sha512": "sha512-wrDUVsoQHQct9BodCFgRi1LMKGhwv27ANuS8l7ZXcOn/VS2NqcxxBhSAkcucx4CoZgidny0+ifnFS95nTmnVvg==",
+      "path": "selenium.webdriver.chromedriver/108.0.5359.7100",
+      "hashPath": "selenium.webdriver.chromedriver.108.0.5359.7100.nupkg.sha512"
     },
     "SeleniumExtras.WaitHelpers/1.0.2": {
       "type": "package",

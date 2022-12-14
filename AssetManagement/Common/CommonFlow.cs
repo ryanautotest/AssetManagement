@@ -11,5 +11,11 @@ namespace AssetManagement.Common
             LoginPage loginPage = new LoginPage(driver);
             loginPage.LoginAsAdmin();
         }
+        public static void LoginAsUserFlow(IWebDriver driver)
+        {
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.LoginAsUser();
+        }
+
     }
 }

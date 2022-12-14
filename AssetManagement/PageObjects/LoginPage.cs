@@ -15,39 +15,64 @@ namespace AssetManagement.PageObjects
         {
         }
 
-        protected string btnLogin = "//button[text()='Login']";
-        protected string txtUserName = "username";
-        protected string txtPassword = "password";
-        protected string btnSubmitLogin = "loginButton";
+        protected string txtUserName = "//input[@id='username']";
+        protected string txtPassword = "//input[@id='password']";
+        protected string btnSubmitLogin = "//button[@id='loginButton']";
 
         //change password 1st time
-        protected string txtNewPass = "//input[@id='newPass']";
-        protected string btnOK = "//span[text()='OK']";
+        protected string txtChangePassword = "//div[text()='Change password']";
+        protected string txtNewPass = "//input[@id='newPassword']";
+        protected string btnSave = "//button[@id='btnSubmitChangePassword']";
 
-
-        public Boolean LoginButtonIsDisplayed()
-        {
-            var tf = IsElementDisplay(btnLogin);
-            return tf;
-        }
         public void LoginAsAdmin()
         {
-            SendKeysByID(txtUserName, Constants.ADMIN_USERNAME);
-            SendKeysByID(txtPassword, Constants.ADMIN_PASSWORD);
-            ClickByID(btnSubmitLogin);
+            IsElementDisable(btnSubmitLogin);
+            SendKeys_(txtUserName, Constants.ADMIN_USERNAME);
+            SendKeys_(txtPassword, Constants.ADMIN_PASSWORD);
+            IsElementEnable(btnSubmitLogin);
+            Click(btnSubmitLogin);
         }
 
-        public void LoginAsUser(string userName, string password)
+        public void LoginAsUser()
         {
-            SendKeysByID(txtUserName, userName);
-            SendKeysByID(txtPassword, password);
-            Click(btnLogin);
+            IsElementDisable(btnSubmitLogin);
+            SendKeys_(txtUserName, Constants.STAFF_USERNAME);
+            SendKeys_(txtPassword, Constants.STAFF_PASSWORD);
+            IsElementEnable(btnSubmitLogin);
+            Click(btnSubmitLogin);
+        }
+        public void LoginAsUserAfterChangePassword()
+        {
+            IsElementDisable(btnSubmitLogin);
+            SendKeys_(txtUserName, Constants.STAFF_USERNAME);
+            SendKeys_(txtPassword, Constants.NEW_PASSWORD);
+            IsElementEnable(btnSubmitLogin);
+            Click(btnSubmitLogin);
+        }
+        public void LoginAsUserFirstTime()
+        {
+            IsElementDisable(btnSubmitLogin);
+            SendKeys_(txtUserName, Constants.NEW_USERNAME);
+            SendKeys_(txtPassword, Constants.FIRST_PASSWORD);
+            IsElementEnable(btnSubmitLogin);
+            Click(btnSubmitLogin);
         }
 
-        public void ChangePassword1stTime(string password)
+        public void ChangePassword1stTime()
         {
-            SendKeys_(txtNewPass, password);
-            Click(btnOK);
+            WaitForElementVisible(driver, txtChangePassword);
+            IsElementDisable(btnSave);
+            SendKeys_(txtNewPass, Constants.NEW_PASSWORD);
+            IsElementEnable(btnSave);
+            Click(btnSave);
+        }
+        public void LoginAsNewUserAfterChangePassword()
+        {
+            IsElementDisable(btnSubmitLogin);
+            SendKeys_(txtUserName, Constants.NEW_USERNAME);
+            SendKeys_(txtPassword, Constants.NEW_PASSWORD);
+            IsElementEnable(btnSubmitLogin);
+            Click(btnSubmitLogin);
         }
 
     }

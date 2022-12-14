@@ -100,7 +100,7 @@ namespace SeleniumFramework.Reporter
 
         public static void Fail(string des, string path)
         {
-            GetTest().Fail(MarkupHelper.CreateLabel(des, ExtentColor.Green)).AddScreenCaptureFromPath(path);
+            GetTest().Fail(MarkupHelper.CreateLabel(des, ExtentColor.Red)).AddScreenCaptureFromPath(path);
         }
 
         public static void Fail(string des, string ex, string path)
